@@ -24,13 +24,13 @@
                 <p class="text-gray-500 text-sm mt-1">Mettez à jour les détails de votre projet.</p>
             </div>
 
-            <form action="{{ route('posts.update', $post) }}" method="POST" class="space-y-6">
+            <form action="{{ route('posts.edit', $post) }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
 
                 <div>
                     <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Titre du post</label>
-                    <input type="text" name="title" id="title" 
+                    <input type="text" name="title" id="title"
                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none"
                         placeholder="Ex: Acheter le pain..."
                         value="{{ $post->titre }}" required>
@@ -38,18 +38,18 @@
 
                 <div>
                     <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                    <textarea name="description" id="description" rows="4" 
+                    <textarea name="description" id="description" rows="4"
                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none"
                         placeholder="Détaillez votre posts ici...">{{ $post->contenu }}</textarea>
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                    <input type="url" name="image" id="image">
+                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
+                    <input type="file" name="image" id="image">
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" 
+                    <button type="submit"
                         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]">
                         Enregistrer les modifications
                     </button>
