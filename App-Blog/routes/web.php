@@ -5,12 +5,13 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\PostController;
 
 
-Route:: resource('categories', CategorieController::class);
-Route:: resource('posts',PostController::class);
+Route::resource('categories', CategorieController::class);
+Route::resource('posts', PostController::class);
+
+
 // Route:: get('/',function ()){
 //     return
 // }
-Route::get('/hello', function () {
+Route::get('/', function () {
     return 'Bienvenue dans Laravel !';
 });
-

@@ -52,8 +52,8 @@
                 </div>
 
                 <div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
-                    <img src="{{ $post['image'] }}"
-                         alt="{{ $post['titre'] }}"
+                    <img src="{{ asset('storage/' . $post->image) }}"
+                         alt="{{ $post->titre }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
 

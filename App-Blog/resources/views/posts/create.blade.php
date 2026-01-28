@@ -17,7 +17,7 @@
             <a href="{{ route('posts.index') }}" class="text-gray-400 hover:text-indigo-600 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </a>
-            <span class="font-semibold text-gray-700">Mode Édition</span>
+            <span class="font-semibold text-gray-700">Créer un Post</span>
             <div class="w-6"></div>
         </div>
     </nav>
@@ -28,9 +28,10 @@
             <p class="text-gray-500 mt-2 text-lg">Partagez vos idées avec le monde entier.</p>
         </header>
 
-        <form action="{{ route('posts.store') }}" method="POST" class="space-y-8">
+        <form action="{{ route('posts.store') }}" method="POST" class="space-y-8" enctype="multipart/form-data">
             @csrf
 
+            <!-- Upload image -->
             <div class="group relative bg-white border-2 border-dashed border-gray-200 rounded-2xl p-12 text-center hover:border-indigo-400 transition-colors cursor-pointer">
                 <div class="space-y-2">
                     <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -39,19 +40,21 @@
                     <div class="text-sm text-gray-600">
                         <label for="image" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500">
                             <span>Télécharger une photo de couverture</span>
-                            <input id="image" name="image" type="file" class="sr-only">
+                            <input id="image" name="image" type="file" class="sr-only" required>
                         </label>
                     </div>
                 </div>
             </div>
 
+            <!-- Title + Category + Contenu -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 sm:p-8 space-y-6">
                     <div>
-                        <input type="text" name="title" id="title"
+                        <input type="text" name="titre" id="titre"
                             class="w-full text-3xl font-bold placeholder-gray-300 border-none focus:ring-0 p-0 outline-none"
                             placeholder="Titre de votre post..." required>
                     </div>
+
                     <div class="flex items-center gap-2">
                         <div class="bg-indigo-50 p-2 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,27 +62,25 @@
                             </svg>
                         </div>
                         <select name="categorie_id" id="categorie_id"
-                            class="bg-transparent text-sm font-semibold text-indigo-600 uppercase tracking-wider border-none focus:ring-0 cursor-pointer p-0 outline-none">
+                            class="bg-transparent text-sm font-semibold text-indigo-600 uppercase tracking-wider border-none focus:ring-0 cursor-pointer p-0 outline-none" required>
                             <option value="" disabled selected>Choisir une catégorie</option>
-                            <option value="science">science</option>
-                            <option value="technologies">technologies</option>
-                            <option value="culture">culture</option>
-                            <option value="din">din</option>
-                            <option value="other">Other</option>
+                            @foreach($categories as $categorie)
+                                <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <hr class="border-gray-100">
 
                     <div>
-                        <textarea name="description" id="description" rows="10"
+                        <textarea name="contenu" id="contenu" rows="10"
                             class="w-full text-lg text-gray-700 placeholder-gray-300 border-none focus:ring-0 p-0 outline-none resize-none"
                             placeholder="Il était une fois..."></textarea>
                     </div>
                 </div>
-
             </div>
 
+            <!-- Buttons -->
             <div class="flex items-center justify-end space-x-4">
                 <a href="{{ route('posts.index') }}" class="px-6 py-3 text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">
                     Annuler
