@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('categories')->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -34,7 +34,7 @@ class PostController extends Controller
         $validated = $request->validate([
             'titre' => 'required|max:255',
             'contenu' => 'required|string',
-            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp,jfif|max:2048',
             'categorie_id' => 'required|exists:categories,id',
         ]);
         if ($request->hasFile('image')) {
@@ -62,8 +62,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-
-        return view('posts.edit', compact('post'));
+        $categories = Categorie::all();
+        return view('posts.edit', compact('post','categories'));
     }
 
     /**
@@ -76,6 +76,12 @@ class PostController extends Controller
             'contenu' => 'nullable',
             'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
+        if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $name = time().'_'.$file->getClientOriginalName();
+        $path = $file->storeAs('posts', $name, 'public');
+        $validated['image'] = $path;
+    }
         $post->update($validated);
 
         return redirect()->route('posts.index');

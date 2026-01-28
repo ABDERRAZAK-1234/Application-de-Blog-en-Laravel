@@ -24,29 +24,42 @@
                 <p class="text-gray-500 text-sm mt-1">Mettez à jour les détails de votre projet.</p>
             </div>
 
-            <form action="{{ route('posts.edit', $post) }}" method="POST" class="space-y-6">
-                @csrf
-                @method('PUT')
+            <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
+            @method('PUT')
+
 
                 <div>
                     <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Titre du post</label>
-                    <input type="text" name="title" id="title"
+                    <input type="text" name="titre" id="titre"
                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none"
                         placeholder="Ex: Acheter le pain..."
                         value="{{ $post->titre }}" required>
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                    <textarea name="description" id="description" rows="4"
+                    <label for="contenu" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                    <textarea name="contenu" id="contenu" rows="4"
                         class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none"
                         placeholder="Détaillez votre posts ici...">{{ $post->contenu }}</textarea>
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
+                    <label for="contenu" class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
                     <input type="file" name="image" id="image">
                 </div>
+
+                <div>
+                        <label for="categorie_id" class="block text-sm font-semibold text-gray-700 mb-2">Catégorie</label>
+                        <select name="categorie_id" id="categorie_id"
+                            class="bg-transparent text-sm font-semibold text-indigo-600 uppercase tracking-wider border-none focus:ring-0 cursor-pointer p-0 outline-none" required>
+                            <option value="" disabled selected>Choisir une catégorie</option>
+                            @foreach($categories as $categorie)
+                                <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                            @endforeach
+                        </select>
+                </div>
+
 
                 <div class="pt-4">
                     <button type="submit"
