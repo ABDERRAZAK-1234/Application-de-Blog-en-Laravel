@@ -55,7 +55,10 @@
                             class="bg-transparent text-sm font-semibold text-indigo-600 uppercase tracking-wider border-none focus:ring-0 cursor-pointer p-0 outline-none" required>
                             <option value="" disabled selected>Choisir une catégorie</option>
                             @foreach($categories as $categorie)
-                                <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                                <option value="{{ $categorie->id }}"
+                                    {{ $post->categorie_id == $categorie->id ? 'selected' : '' }}>
+                                    {{ $categorie->nom }}
+                                </option>
                             @endforeach
                         </select>
                 </div>
