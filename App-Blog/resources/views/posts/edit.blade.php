@@ -52,7 +52,7 @@
                     <div class="text-sm text-gray-600">
                         <label for="image" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500">
                             <span>Télécharger une photo de couverture</span>
-                            <input id="image" name="image" type="file" class="sr-only" required>
+                            <input id="image" name="image" type="file" class="sr-only" >
                         </label>
                     </div>
                 </div>

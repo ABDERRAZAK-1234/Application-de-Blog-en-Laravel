@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Categorie;
+use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     /**
@@ -23,7 +24,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Categorie::all();
-        return view('posts.create',compact('categories'));
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -63,7 +64,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Categorie::all();
-        return view('posts.edit', compact('post','categories'));
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -78,11 +79,16 @@ class PostController extends Controller
             'categorie_id' => 'required|exists:categories,id'
         ]);
         if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $name = time().'_'.$file->getClientOriginalName();
-        $path = $file->storeAs('posts', $name, 'public');
-        $validated['image'] = $path;
-    }
+            // delete pic
+            if ($post->image && Storage::disk('public')->exists($post->image)) {
+                Storage::disk('public')->delete($post->image);
+            }
+            // reneme pic
+            $file = $request->file('image');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('posts', $name, 'public');
+            $validated['image'] = $path;
+        }
         $post->update($validated);
 
         return redirect()->route('posts.index');
@@ -93,6 +99,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // delete pic
+        if ($post->image && Storage::disk('public')->exists($post->image)) {
+            Storage::disk('public')->delete($post->image);
+        }
         $post->delete();
         return redirect()->route('posts.index');
     }
