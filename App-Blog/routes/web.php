@@ -8,10 +8,7 @@ use App\Http\Controllers\PostController;
 Route::resource('categories', CategorieController::class)->parameters(['categories'=>'categorie']);
 Route::resource('posts', PostController::class);
 
-// Route:: get('/',function ()){
-//     return
-// }
 Route::get('/', function () {
-    return 'Bienvenue dans Laravel !';
+    return view('welcome');
 });
 

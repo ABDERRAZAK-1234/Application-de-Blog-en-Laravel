@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categorie;
+use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 class CategorieController extends Controller
 {
@@ -72,8 +74,12 @@ class CategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorie $categorie)
+    public function destroy(Categorie $categorie, Post $post)
     {
+        // delete pic of post
+            if ($post->image && Storage::disk('public')->exists($post->image)) {
+                Storage::disk('public')->delete($post->image);
+            }
         $categorie->delete();
         return redirect()->route('categories.index');
     }
