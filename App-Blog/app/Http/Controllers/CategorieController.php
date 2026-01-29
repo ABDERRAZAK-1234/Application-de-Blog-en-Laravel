@@ -36,13 +36,13 @@ class CategorieController extends Controller
 
         Categorie::create($validated);
 
-        return redirect()->route(route: 'categories.index');
+        return redirect()->route('categories.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Categorie $categorie)
     {
         //
     }
@@ -50,24 +50,31 @@ class CategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Categorie $categorie)
     {
-        //
+        return view('categories.edit', compact('categorie'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Categorie $categorie)
     {
-        //
+        $validated = $request->validate([
+            'nom' => 'required|max:255',
+            'description' => 'nullable'
+        ]);
+
+        $categorie->update($validated);
+        return redirect()->route('categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Categorie $categorie)
     {
-        //
+        $categorie->delete();
+        return redirect()->route('categories.index');
     }
 }

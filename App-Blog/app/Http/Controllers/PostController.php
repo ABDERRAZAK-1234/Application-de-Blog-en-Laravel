@@ -41,7 +41,7 @@ class PostController extends Controller
             $file = $request->file('image');
             $name = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('posts', $name, 'public');
-            $data['image'] = $path;
+            $validated['image'] = $path;
         }
 
         Post::create($validated);
