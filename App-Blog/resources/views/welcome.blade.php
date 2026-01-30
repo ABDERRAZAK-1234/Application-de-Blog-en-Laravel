@@ -38,12 +38,12 @@
     <div class="container max-w-5xl mx-auto px-6 py-12 text-center relative z-10">
 
         <header data-aos="zoom-out" data-aos-duration="1000">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-sm mb-8">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full shadow-sm mb-8">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
                 </span>
-                <span class="text-xs font-bold text-slate-600 uppercase tracking-widest">Système de gestion prêt</span>
+
             </div>
 
             <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 leading-[1.1]">
@@ -89,7 +89,7 @@
         </div>
 
         <footer class="mt-20 text-slate-400 font-medium tracking-wide animate-pulse" data-aos="fade-up" data-aos-offset="0">
-            &copy; 2026 MYBLOG APP — TANGER, MOROCCO
+            &copy; 2026 MYBLOG APP
         </footer>
     </div>
 
