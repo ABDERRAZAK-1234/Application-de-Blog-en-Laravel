@@ -74,13 +74,17 @@ class CategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorie $categorie, Post $post)
+    public function destroy(Categorie $categorie)
     {
-        // delete pic of post
+        // delete pic of posts with categorie
+        $posts = $categorie->posts;
+        foreach ($posts as $post) {
             if ($post->image && Storage::disk('public')->exists($post->image)) {
                 Storage::disk('public')->delete($post->image);
             }
+        }
         $categorie->delete();
+
         return redirect()->route('categories.index');
     }
 }
